@@ -18,8 +18,10 @@ Envoie `hardware/fab/sub-eq-gerbers.zip`, **sans assemblage**, dans la même com
   | ENIG | 18,86 |
 
 - **Port vers la France : Global Standard Direct Line, 5,99 €**, 10 à 12 jours ouvrés (estimation du site pour cette carte seule ; DHL Express : 20,92 €).
-- **Les deux cartes dans le même panier** : 2 × 3,56 € + un seul port ≈ 6 €, soit ≈ 13 € HT. Avec la TVA de 20 % prélevée à la commande et ≈ 2 € de dédouanement (relevés pour audio-box) : **≈ 18 € TTC pour les deux**. Les PCB d'audio-box peuvent partir dans le même colis.
-- **Non vérifié** (il faudrait remplir un panier) : le port exact à plusieurs cartes, et si le prix de 3,56 €, affiché comme « Special Offer », vaut pour chaque carte du panier.
+- **Panier réel rempli le 2026-11-10** avec les deux cartes (une ligne chacune, 5 PCB noirs HASL avec plomb, 3,56 € pièce) : **7,12 € de PCB**, 0,30 kg.
+- **Port à deux cartes : Global Standard Direct Line, 6,98 €** (10 à 12 jours ouvrés), soit **14,10 € HT**. Le panier présélectionne DHL Express à 20,92 € : **change le mode de port avant de payer**.
+- **TVA et taxes : non affichées avant le paiement.** Avec 20 % de TVA et ≈ 2 € de dédouanement (relevés pour audio-box), compte **≈ 19 € TTC pour les deux cartes**.
+- Les PCB d'audio-box peuvent partir dans le même colis.
 - Isolement et pistes minimales : 0,15 mm, dans les capacités standard.
 
 ## 2. Composants CMS (Mouser)

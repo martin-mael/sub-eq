@@ -6,7 +6,7 @@
 
 - **Mouser :** prix relevés le 2026-11-10 par un agent, en lecture seule, sans panier. Ils sont comptés hors TVA (c'est ce qu'affichait le panier d'audio-box), TVA de 20 % ajoutée. **Aucun panier n'a été rempli** : le total est calculé à partir de la nomenclature et des prix unitaires.
 - **Port Mouser :** offert à partir de 75 € HT lors de la commande d'audio-box, non revérifié. Les deux boîtes ensemble font ≈ 71 € HT : commande-les ensemble et ajoute une ou deux pièces de rechange.
-- **JLCPCB :** devis réel relevé le 2026-11-10 pour chaque carte (5 PCB noirs, HASL avec plomb : 3,56 € HT ; port standard ≈ 6 €). Les deux cartes sont comptées dans un seul colis, avec 20 % de TVA et ≈ 2 € de dédouanement : ≈ 18 € TTC, partagés en deux. Le port exact à deux cartes n'est pas vérifié.
+- **JLCPCB :** panier réel rempli le 2026-11-10 avec les deux cartes : 7,12 € de PCB + 6,98 € de port standard = 14,10 € HT. La TVA n'est pas affichée avant le paiement : avec 20 % et ≈ 2 € de dédouanement, ≈ 19 € TTC, partagés en deux.
 - **Non compté :** outillage, temps de montage, câbles jack.
 
 ## Détail
@@ -15,7 +15,7 @@
 |---|---|---|---|---|
 | Mouser, CMS | 31 lignes, passifs par 10 | 12,3 | 14,7 | relevé (1,0 € non relevé) |
 | Mouser, traversants | potentiomètres, jacks, DC-DC, films, LED, boutons | 27,1 | 32,6 | relevé |
-| JLCPCB | 5 PCB noirs HASL (3,56 € HT) + moitié du port, TVA et dédouanement | — | ≈ 9 | devis relevé, port partagé estimé |
+| JLCPCB | 5 PCB noirs HASL (3,56 € HT) + moitié du port, TVA et dédouanement | — | ≈ 9,5 | panier réel, TVA estimée |
 | Bloc secteur 12 V | 12 V DC régulé, positif au centre | — | ≈ 9 | estimé |
 | Blindage | moitié d'un rouleau de ruban de cuivre | — | ≈ 4 | estimé |
 | Visserie, patins | vis M3, patins (inserts : reste d'audio-box) | — | ≈ 2 | estimé |

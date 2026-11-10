@@ -35,6 +35,4 @@ Visionneuse 3D : `cd viewer && npm install && npm run assets && npm run dev` (ht
 
 ## Déploiement de la visionneuse sur Vercel
 
-`vercel.json`, à la racine, construit `viewer/` et publie `viewer/dist`. Les modèles 3D (`viewer/public/models/`) sont versionnés : Vercel n'a besoin ni de KiCad ni de Python. Relance `npm run assets` et commite avant de pousser si le PCB ou le boîtier a changé.
-
-Pour déployer : sur vercel.com, « Add New… → Project », importe le dépôt GitHub et laisse les réglages détectés.
+Dans le projet Vercel, le **Root Directory** est `viewer` : Vercel y détecte Vite et lance `npm install`, `npm run build`, puis publie `dist`. `viewer/vercel.json` ne fait que fixer le framework. Les modèles 3D (`viewer/public/models/`) sont versionnés : Vercel n'a besoin ni de KiCad ni de Python. Relance `npm run assets` et commite avant de pousser si le PCB ou le boîtier a changé.

@@ -1,0 +1,11 @@
+hardware/fab-*.rpt
+.venv
+*.bak
+*-backups/
+fp-info-cache
+*.lck
+__pycache__/
+.DS_Store
+viewer/node_modules
+viewer/dist
+viewer/*.tsbuildinfo

@@ -1,0 +1,8 @@
+Designator,Qty,Description,Manufacturer Part,Supplier
+"C2, C3, C101-C502",14,"Film capacitor 220 nF 63 V 5 %, 5 mm pitch, 7.2 x 2.5 mm",KEMET R82DC3220SH60J,Mouser 80-R82DC3220SH60J
+"J1, J2",2,"6.35 mm mono jack, switched, horizontal PCB, with nut",Neutrik NMJ4HCD2,Mouser 550-12202
+J3,1,"DC power jack 5.5 x 2.1 mm, horizontal PCB",Same Sky (CUI) PJ-102AH,Mouser 490-PJ-102AH
+RV1-RV5,5,"Pot 20 kOhm linear, centre detent, 9 mm, horizontal, M9 bushing, D shaft 15 mm",Alps Alpine RK09L112003P,Mouser 688-RK09L112003P
+PS1,1,"Isolated DC-DC 12 V -> +-12 V 1 W, SIP-7",TRACO TMA 1212D,Mouser 495-TMA-1212D
+D2,1,"LED 3 mm red, low current (2 mA)",Kingbright WP710A10LID,Mouser 604-WP710A10LID
+-,5,"Knob for 6 mm D shaft, diameter 11 mm, black ABS",Same Sky SPK-016A,Mouser 179-SPK-016A

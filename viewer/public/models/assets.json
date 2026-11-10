@@ -1,0 +1,15 @@
+{
+  "pcbOffsetMm": [
+    -49.9999999,
+    49.9999999,
+    7.5000001
+  ],
+  "boardThicknessStep": 1.51,
+  "generated": "2026-11-10 14:32",
+  "sources": [
+    "enclosure/out/*.step",
+    "enclosure/enclosure.py",
+    "hardware/fab/sub-eq-pcb.step",
+    "hardware/sub-eq.kicad_pcb"
+  ]
+}

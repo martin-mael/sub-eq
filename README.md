@@ -32,3 +32,9 @@ FREEROUTING_JAR=~/.cache/freerouting/freerouting-2.5.0.jar ./build.sh
 Il faut KiCad 10 dans `~/Applications/KiCad`, Java 21 ou plus, [Freerouting](https://github.com/freerouting/freerouting/releases) 2.5 et un `.venv` avec `numpy`, `build123d` et `cairosvg` (ici un lien vers celui d'audio-box).
 
 Visionneuse 3D : `cd viewer && npm install && npm run assets && npm run dev` (http://localhost:5174).
+
+## Déploiement de la visionneuse sur Vercel
+
+`vercel.json`, à la racine, construit `viewer/` et publie `viewer/dist`. Les modèles 3D (`viewer/public/models/`) sont versionnés : Vercel n'a besoin ni de KiCad ni de Python. Relance `npm run assets` et commite avant de pousser si le PCB ou le boîtier a changé.
+
+Pour déployer : sur vercel.com, « Add New… → Project », importe le dépôt GitHub et laisse les réglages détectés.

@@ -10,7 +10,7 @@
 |---|---|
 | Bandes | 31, 40, 50, 63 et 80 Hz (tiers d'octave, Q = 4,3) |
 | Plage | ±12 dB par bande, cran central à 0 dB. Conception : ±12,4 dB simulés ; +3,7 dB à mi-course |
-| Topologie | égaliseur à Q constant : 5 passe-bande à contre-réaction multiple, un sommateur de coupe et un de boost. 9 sections d'ampli-op (2 × TL074, 1 × TL072), aucune inductance |
+| Topologie | égaliseur à Q constant : 5 passe-bande à contre-réaction multiple, un sommateur de coupe et un de boost. 9 sections d'ampli-op (2 × TL074, 1 × TL072), aucune inductance. Toutes les résistances sont des valeurs du catalogue « de base » de JLCPCB, certaines en série, pour permettre un assemblage sans frais de pièces étendues |
 | Canaux | mono |
 | Gain | unité quand tous les potentiomètres sont au centre (exact par construction) |
 | Filtre subsonique | passe-haut fixe à 20 Hz, 12 dB / octave (Butterworth), toujours en service : −0,65 dB à 31 Hz |
@@ -42,7 +42,7 @@ Deux comportements à connaître, propres à tout égaliseur graphique :
 
 ## Fabrication
 
-- PCB nu chez JLCPCB, 2 couches, **90 × 62 mm**, **tout soudé à la main** : CMS en 0805 / SOIC, puis les traversants.
+- PCB nu chez JLCPCB, 2 couches, **90 × 62 mm**, **tout soudé à la main** : CMS en 0805 / SOIC, puis les traversants. Option : CMS posés par JLCPCB, voir [ASSEMBLAGE-JLC.md](ASSEMBLAGE-JLC.md).
 - Potentiomètres, jacks et prise DC soudés sur le PCB : aucun câblage interne, sauf le fil de masse du blindage.
 
 ## Boîtier

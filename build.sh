@@ -18,5 +18,6 @@ python3 check_netlist.py "$NET" | tee /dev/stderr | grep -q "NETLIST OK"
 ../../.venv/bin/python sim_eq.py > ../sim-report.txt
 ./route_until_clean.sh          # gen_pcb.py + route_pcb.py + DRC, retried until clean
 python3 build_fab.py 2>/dev/null
+python3 build_jlc.py
 cd ../../enclosure
 ../.venv/bin/python enclosure.py && ../.venv/bin/python check_fit.py && ../.venv/bin/python preview.py

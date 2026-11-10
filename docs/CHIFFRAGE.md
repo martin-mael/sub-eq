@@ -1,30 +1,34 @@
-# Chiffrage (prix relevés le 2026-11-10)
+# Chiffrage : 2 Sub EQ, CMS posés par JLCPCB (prix relevés le 2026-11-10)
 
-**≈ 73 € TTC pour le Sub EQ**, bloc secteur compris. Avec le DJ Filter commandé en même temps : ≈ 162 € TTC pour les deux boîtes.
+**≈ 131 € TTC pour 2 boîtes complètes, soit ≈ 65 € par boîte**, blocs secteur compris. Port Mouser non compté : la commande est groupée avec d'autres.
 
-## Hypothèses
-
-- **Mouser :** prix relevés le 2026-11-10 par un agent, en lecture seule, sans panier. Ils sont comptés hors TVA (c'est ce qu'affichait le panier d'audio-box), TVA de 20 % ajoutée. **Aucun panier n'a été rempli** : le total est calculé à partir de la nomenclature et des prix unitaires.
-- **Port Mouser :** offert à partir de 75 € HT lors de la commande d'audio-box, non revérifié. Les deux boîtes ensemble font ≈ 71 € HT : commande-les ensemble et ajoute une ou deux pièces de rechange.
-- **JLCPCB :** panier réel rempli le 2026-11-10 avec les deux cartes : 7,12 € de PCB + 6,98 € de port standard = 14,10 € HT. La TVA n'est pas affichée avant le paiement : avec 20 % et ≈ 2 € de dédouanement, ≈ 19 € TTC, partagés en deux.
-- **Non compté :** outillage, temps de montage, câbles jack.
+Le détail ligne par ligne est dans [BOM.md](BOM.md), le devis d'assemblage dans [ASSEMBLAGE-JLC.md](ASSEMBLAGE-JLC.md).
 
 ## Détail
 
 | Poste | Détail | € HT | € TTC | Source |
 |---|---|---|---|---|
-| Mouser, CMS | 31 lignes, passifs par 10 | 12,3 | 14,7 | relevé (1,0 € non relevé) |
-| Mouser, traversants | potentiomètres, jacks, DC-DC, films, LED, boutons | 27,1 | 32,6 | relevé |
-| JLCPCB | 5 PCB noirs HASL (3,56 € HT) + moitié du port, TVA et dédouanement | — | ≈ 9,5 | panier réel, TVA estimée |
-| Bloc secteur 12 V | 12 V DC régulé, positif au centre | — | ≈ 9 | estimé |
-| Blindage | moitié d'un rouleau de ruban de cuivre | — | ≈ 4 | estimé |
-| Visserie, patins | vis M3, patins (inserts : reste d'audio-box) | — | ≈ 2 | estimé |
-| Impression 3D | ≈ 60 g de PETG | — | ≈ 2 | estimé |
-| **Total** | | | **≈ 73 €** | |
+| JLCPCB | 5 PCB noirs HASL, 70 CMS posés sur 2 cartes | 21,41 | ≈ 26 | devis relevé |
+| JLCPCB, port et taxes | port standard ≈ 9 € HT, TVA, ≈ 2 € de dédouanement | — | ≈ 13 | estimé |
+| Mouser, traversants | 10 potentiomètres, 4 jacks, 2 DC-DC, 2 prises DC, 26 condensateurs film, 2 LED, 10 boutons | 50,30 | ≈ 60 | prix relevés |
+| Blocs secteur | 2 × 12 V DC régulé, positif au centre | — | ≈ 18 | estimé |
+| Mécanique | ruban de cuivre, vis M3, inserts, patins, filament | — | ≈ 14 | estimé |
+| **Total** | | | **≈ 131 €** | |
 
-Postes les plus lourds : les 5 potentiomètres à cran central (13,75 € HT), le DC-DC (4,80 €) et les jacks (3,84 €).
+## Hypothèses
 
-## Pistes d'économie
+- **JLCPCB :** devis relevé sur le site pour 5 PCB dont 2 assemblés, sans rien enregistrer au panier. Le port d'un colis assemblé (≈ 0,47 kg) n'est pas affiché avant l'enregistrement : il est extrapolé des tarifs lus pour des cartes nues.
+- **Mouser :** prix unitaires relevés, hors TVA ; les potentiomètres et les boutons sont au tarif par 10. **Port non compté**, la commande étant groupée (il est offert à partir de 75 € HT d'après la commande d'audio-box, non revérifié).
+- **Non compté :** outillage, temps de montage, câbles jack.
 
-- **Potentiomètres Bourns PTV09A à cran central** (≈ 0,8 € pièce au lieu de 2,75 €) : −10 €. Mais la version à axe parallèle au PCB n'est pas stockée (12 semaines), et elle n'a pas de canon fileté pour se fixer à la façade.
-- **Masse virtuelle au lieu du DC-DC** : −5 €, mais la sortie écrêterait dès +2 dBu en entrée avec 12 dB de boost.
+## Ce qui ne s'achète plus chez Mouser
+
+Les 35 lignes de CMS (résistances, condensateurs céramique et électrolytiques, diode, TL074, TL072) sont fournies et posées par JLCPCB. `hardware/fab/bom_mouser_smd.csv` ne sert que si tu soudes les CMS toi-même.
+
+## Postes les plus lourds
+
+Les 10 potentiomètres à cran central (24,60 € HT), les 2 convertisseurs DC-DC (9,60 €) et les 4 jacks (7,68 €).
+
+## Variante : tout souder à la main, un seul exemplaire
+
+PCB nus (3,56 € HT les 5) et CMS chez Mouser (≈ 12 € HT) : ≈ 73 € TTC pour une boîte, port Mouser non compté.

@@ -33,15 +33,18 @@ RI = 20e3                # inverter
 RP = 20e3                # pots: Alps RK09L112003P, 20k linear, centre detent
 RS = 2.0e3               # pot end resistors: +-12.4 dB per band
 C = 220e-9               # every filter capacitor (film, 5 %)
-# band: (label, R1 input, R2 to ground, R3 feedback)   f0 = 1/(2 pi C sqrt(R3 (R1||R2))), Q = pi f0 C R3
-BANDS = [
-    ("31", 97.6e3, 2.74e3, 196e3),
-    ("40", 78.7e3, 2.15e3, 154e3),
-    ("50", 61.9e3, 1.74e3, 124e3),
-    ("63", 49.9e3, 1.37e3, 97.6e3),
-    ("80", 39.2e3, 1.07e3, 78.7e3),
+# Every resistor value below is a JLCPCB "Basic" 0805 1 % part (no extended-part fee when the board is assembled).
+# band: (label, R1 input, R2 to ground, R3 feedback), each one a list of values wired in series.
+#   f0 = 1/(2 pi C sqrt(R3 (R1||R2))), Q = pi f0 C R3, gain = R3/(2 R1)
+BAND_PARTS = [
+    ("31", [100e3], [2.7e3], [200e3]),
+    ("40", [68e3, 8.2e3], [2.2e3], [150e3, 2.4e3]),
+    ("50", [47e3, 15e3], [1.5e3, 220.0], [100e3, 24e3]),
+    ("63", [47e3, 3e3], [680.0, 680.0], [100e3]),
+    ("80", [27e3, 12e3], [680.0, 390.0], [68e3, 10e3]),
 ]
-HP_R1, HP_R2 = 25.5e3, 51.1e3      # subsonic HPF: R1 to the op-amp output, R2 to ground
+BANDS = [(label, sum(r1), sum(r2), sum(r3)) for label, r1, r2, r3 in BAND_PARTS]     # totals, for sim_eq.py
+HP_R1, HP_R2 = 25.5e3, 51e3        # subsonic HPF: R1 to the op-amp output (2 x 51k in parallel), R2 to ground
 
 
 def fmt(v):
@@ -117,10 +120,11 @@ part("J1", JACK, "IN 6.35", "JACK", {"T": "IN", "TN": "GND", "S": "GND"}, r.at(2
      note="TN to GND: the input is grounded when nothing is plugged in")
 res("R1", 1e6, "IN", "GND", r.at())
 res("R2", 470, "IN", "INF", r.at())
-part("C1", CAP, "1n C0G", "C", {"1": "INF", "2": "GND"}, r.at())
+part("C1", CAP, "1n", "C", {"1": "INF", "2": "GND"}, r.at())
 part("C2", CAP, "220n film", "CFILM", {"1": "INF", "2": "HA"}, r.at())
 part("C3", CAP, "220n film", "CFILM", {"1": "HA", "2": "HB"}, r.at())
-res("R3", HP_R1, "HA", "H", r.at())
+res("R3", 2 * HP_R1, "HA", "H", r.at())
+res("R16", 2 * HP_R1, "HA", "H", r.at())      # in parallel with R3: 25.5k
 res("R4", HP_R2, "HB", "GND", r.at())
 opamp("U1", QUAD, "TL074", "SOIC14", 1, "HB", "H", "H", r.at(2))
 res("R5", RIN, "H", "NA", r.at())
@@ -142,16 +146,25 @@ res("R12", 100e3, "OUT", "GND", r.at())
 part("J2", JACK, "OUT 6.35", "JACK", {"T": "OUT", "S": "GND"}, r.at(2), role="out")
 
 # --- the five bands
-for i, (label, r1, r2, r3) in enumerate(BANDS):
+def chain(refs, values, a, b, mid, r):
+    """Resistors in series from net a to net b (refs / intermediate net used only when there are two)."""
+    if len(values) == 1:
+        res(refs[0], values[0], a, b, r.at())
+    else:
+        res(refs[0], values[0], a, mid, r.at())
+        res(refs[1], values[1], mid, b, r.at())
+
+
+for i, (label, r1, r2, r3) in enumerate(BAND_PARTS):
     n = (i + 1) * 100
     k = str(i + 1)
     m, kn, x = "M" + k, "K" + k, "X" + k
     r = Row(2 + i)
-    res("R%d" % (n + 1), r1, "VI", m, r.at())
-    res("R%d" % (n + 2), r2, m, "GND", r.at())
+    chain(("R%d" % (n + 1), "R%d" % (n + 6)), r1, "VI", m, "MA" + k, r)
+    chain(("R%d" % (n + 2), "R%d" % (n + 7)), r2, m, "GND", "MB" + k, r)
     part("C%d" % (n + 1), CAP, "220n film", "CFILM", {"1": m, "2": kn}, r.at())
     part("C%d" % (n + 2), CAP, "220n film", "CFILM", {"1": m, "2": x}, r.at())
-    res("R%d" % (n + 3), r3, kn, x, r.at())
+    chain(("R%d" % (n + 3), "R%d" % (n + 8)), r3, kn, x, "MC" + k, r)
     if i < 4:
         opamp("U2", QUAD, "TL074", "SOIC14", i + 1, "GND", kn, x, r.at(2))
     else:
@@ -162,7 +175,7 @@ for i, (label, r1, r2, r3) in enumerate(BANDS):
     res("R%d" % (n + 4), RS, "PB" + k, "NB", r.at())
     res("R%d" % (n + 5), RS, "PC" + k, "NA", r.at())
 # spare half of U3: follower on ground
-part("U3", DUAL, "TL072", "SOIC8", {"5": "GND", "6": "SPARE", "7": "SPARE"}, Row(6, 13).at(2), unit=2)
+part("U3", DUAL, "TL072", "SOIC8", {"5": "GND", "6": "SPARE", "7": "SPARE"}, Row(6, 16).at(2), unit=2)
 
 # --- power
 r = Row(7)
@@ -200,7 +213,7 @@ for i in range(4):
 NOTES = [   # (text, schematic row)
     ("INPUT -> 20 Hz SUBSONIC HIGH-PASS (U1A) -> CUT SUMMER A (U1B)", 0),
     ("INVERTER (U1C) -> BAND-PASS CELLS ; BOOST SUMMER B (U1D) -> OUTPUT", 1),
-    ("BANDS 31 / 40 / 50 / 63 / 80 Hz: MFB band-pass (gain -1, Q 4.3) + 20k centre-detent pot, CW = boost", 2),
+    ("BANDS 31 / 40 / 50 / 63 / 80 Hz: MFB band-pass (gain -1, Q 4.3, JLCPCB Basic values in series) + 20k detent pot, CW = boost", 2),
     ("POWER: 12 V DC -> 1N5819HW -> TMA 1212D (isolated) -> 10R + 100u -> +-12 V. GND is isolated from GNDPWR.", 7),
 ]
 

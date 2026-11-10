@@ -5,9 +5,12 @@
 | Document | Contenu |
 |---|---|
 | [docs/SPEC.md](docs/SPEC.md) | spécification validée et valeurs figées à la conception |
+| [docs/sub-eq-fiche.pdf](docs/sub-eq-fiche.pdf) | fiche de présentation : schéma fonctionnel, courbes, carte, nomenclature, coût |
+| [docs/BOM.md](docs/BOM.md) | nomenclature détaillée de tous les composants |
 | [docs/COMMANDE.md](docs/COMMANDE.md) | PCB, composants, visserie à commander |
 | [docs/CHIFFRAGE.md](docs/CHIFFRAGE.md) | coût détaillé |
 | [docs/MONTAGE.md](docs/MONTAGE.md) | contrôles, impression, soudure, tests, assemblage |
+| [docs/ASSEMBLAGE-JLC.md](docs/ASSEMBLAGE-JLC.md) | option : CMS posés par JLCPCB, devis pour 2, 5 et 10 cartes |
 
 ## Fichiers produits
 
@@ -24,6 +27,8 @@
 Toute modification d'une pièce de panneau se répercute dans `hardware/scripts/gen_pcb.py`, `enclosure/enclosure.py` et `viewer/src/scene/dims.ts`.
 
 ## Régénérer
+
+La fiche PDF et `docs/BOM.md` se régénèrent à part, après `build.sh` : `cd hardware/scripts && ../../.venv/bin/python build_doc.py` (il faut Google Chrome et `pypdf`).
 
 ```bash
 FREEROUTING_JAR=~/.cache/freerouting/freerouting-2.5.0.jar ./build.sh

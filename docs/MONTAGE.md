@@ -34,20 +34,24 @@ Imprime **les deux panneaux d'abord** et présente-les sur les pièces reçues a
 
 ## 3. Soudure des CMS
 
+**Si les CMS sont posés par JLCPCB, saute cette section** : contrôle seulement à la loupe qu'aucune pièce ne manque, puis fais le test de court-circuit en fin de section.
+
 Les repères sont dans `hardware/fab/pcb-top.pdf` : imprime-le à l'échelle 1:1 et coche au fur et à mesure. Fer à 330–350 °C, étain 0,5 mm, flux no-clean, tresse, brucelles, loupe.
 
 **Ordre conseillé :**
 1. **U1, U2** (TL074, SOIC-14) et **U3** (TL072, SOIC-8) : point de la broche 1 sur le repère, deux coins opposés d'abord.
 2. **D1** (Schottky SOD-123) : **bande = cathode**, comme sur la sérigraphie.
-3. Les résistances 0805 **bande par bande**. Chaque bande a ses propres valeurs, ne mélange pas les sachets :
+3. Les résistances 0805 **bande par bande**. Toutes sont des valeurs courantes ; certaines fonctions sont faites de deux résistances en série (repères n06, n07, n08), absentes quand une seule suffit :
 
-   | Bande | Rn01 | Rn02 | Rn03 | Rn04, Rn05 |
+   | Bande | Entrée : Rn01 (+ Rn06) | Vers la masse : Rn02 (+ Rn07) | Contre-réaction : Rn03 (+ Rn08) | Rn04, Rn05 |
    |---|---|---|---|---|
-   | 31 Hz (R1xx) | 97,6 k | 2,74 k | 196 k | 2 k |
-   | 40 Hz (R2xx) | 78,7 k | 2,15 k | 154 k | 2 k |
-   | 50 Hz (R3xx) | 61,9 k | 1,74 k | 124 k | 2 k |
-   | 63 Hz (R4xx) | 49,9 k | 1,37 k | 97,6 k | 2 k |
-   | 80 Hz (R5xx) | 39,2 k | 1,07 k | 78,7 k | 2 k |
+   | 31 Hz (R1xx) | 100 k | 2,7 k | 200 k | 2 k |
+   | 40 Hz (R2xx) | 68 k + 8,2 k | 2,2 k | 150 k + 2,4 k | 2 k |
+   | 50 Hz (R3xx) | 47 k + 15 k | 1,5 k + 220 Ω | 100 k + 24 k | 2 k |
+   | 63 Hz (R4xx) | 47 k + 3 k | 680 Ω + 680 Ω | 100 k | 2 k |
+   | 80 Hz (R5xx) | 27 k + 12 k | 680 Ω + 390 Ω | 68 k + 10 k | 2 k |
+
+   Le filtre subsonique utilise trois résistances de 51 k (R3, R4, R16).
 
 4. Les autres résistances et les condensateurs céramique.
 5. Les 3 électrolytiques C6, C10, C11 : **la bande noire marque le « − »**, le « + » est sérigraphié.

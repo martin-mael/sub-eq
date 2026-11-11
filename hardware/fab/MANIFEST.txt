@@ -1,0 +1,14 @@
+project   sub-eq
+revision  2
+built on  commit 522e038 (plus uncommitted changes, if any)
+
+239e73d865b8ced79c8936a5665601f1d4e4be34a1094ce3a939945e86bdf7cf  sub-eq.kicad_sch
+312a68c9a41322caaed369d3d28efe3a11cc4b061e9a52869c1469ff4ce431ee  sub-eq.kicad_pcb
+d27fe8dc6c70cf04595d58c22c92386516c40e91a163514e86d4aa30ad724e78  fab/sub-eq-gerbers.zip
+3739f71b8598eeeb98edf30162ac636fa3f21be07efce6f1408ce654f32091a7  fab/bom_mouser_smd.csv
+2060205e24e4009ab8faf6f8a97794b9c372c4305a37555b23e306d1463c1e70  fab/bom_hand_solder.csv
+8e5b97211d120a26b337d8666153398c7111e21f2af33042e554eba9fc3fdeb0  fab/schematic.pdf
+962098eca8116b24e89d9bed6741def0db06910636e31a346a0e3d103c8b4ee4  fab/pcb-top.pdf
+2a6122e0ea144ae8d5486789150f9d51f5dae8e85040079cd8bd048c0afaf20c  fab/sub-eq-pcb.step
+265d756981a86e0bb7ddc5d85f89bd00e2b07e13bf6887ec6bb6a291f44459f3  jlc/bom_jlc.csv
+08dd51a6023048020efeb6bcad6b6cfd1343c47002bcf1121b46a480ae688a15  jlc/cpl_jlc.csv

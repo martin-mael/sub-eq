@@ -30,7 +30,22 @@ for name, part in E.parts().items():
             bad += 1
             c = sb.center()
             print("INTERFERENCE %-12s %-18s at (%.1f, %.1f, %.1f) vol %.2f mm3" % (name, label, c.X, -c.Y, c.Z, v))
-# envelopes against each other and against the modelled parts (placement sanity)
+# envelopes against the modelled parts of the board (film capacitors, electrolytics, ICs...)
+parts_only = [(l, s) for l, s in moved if not (abs(s.bounding_box().size.X - E.PCB_W) < 0.5
+                                               and abs(s.bounding_box().size.Z - E.PCB_T) < 0.2)]
+for na, a in env:
+    ab = a.bounding_box()
+    for nb, b in parts_only:
+        bb2 = b.bounding_box()
+        if (bb2.max.X < ab.min.X or bb2.min.X > ab.max.X or bb2.max.Y < ab.min.Y or bb2.min.Y > ab.max.Y
+                or bb2.max.Z < ab.min.Z or bb2.min.Z > ab.max.Z):
+            continue
+        inter = a & b
+        if inter and inter.volume > 0.05:
+            bad += 1
+            c = bb2.center()
+            print("INTERFERENCE %s / %s at (%.1f, %.1f, %.1f) vol %.2f mm3" % (na, nb, c.X, -c.Y, c.Z, inter.volume))
+# envelopes against each other
 for i, (na, a) in enumerate(env):
     for nb, b in env[i + 1:]:
         if na.split()[0] == nb.split()[0] and na.split()[-1] == nb.split()[-1]:

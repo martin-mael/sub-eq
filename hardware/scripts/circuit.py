@@ -26,6 +26,7 @@ Python 3.9 compatible, no third-party import (KiCad's bundled interpreter runs g
 PROJECT = "sub-eq"
 TITLE = "Sub EQ - 5-band graphic EQ for subwoofers (31 / 40 / 50 / 63 / 80 Hz)"
 PAPER = "A3"
+REV = "2"                # design revision: printed on the schematic, the board and the fabrication manifest
 
 # ---------------------------------------------------------------- values (ohms, farads)
 RIN = RF = 20e3          # summers A and B

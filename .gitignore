@@ -9,3 +9,4 @@ __pycache__/
 viewer/node_modules
 viewer/dist
 viewer/*.tsbuildinfo
+hardware/fab-drc-all.rpt

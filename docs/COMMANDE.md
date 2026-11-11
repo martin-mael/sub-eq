@@ -22,6 +22,15 @@ Fichiers à envoyer sur cart.jlcpcb.com/quote :
 - le délai « 24 hours (PCBA Only) » n'est pas resté présélectionné ;
 - le panier ne contient plus l'ancienne version de la carte.
 
+**Orientation des pièces : à relire toi-même dans l'aperçu de pose de JLCPCB avant de payer.** `cpl_jlc.csv` applique les corrections de rotation usuelles (SOIC : +270°, électrolytiques : +180°), mais elles dépendent du conditionnement de chaque pièce et n'ont pas été vérifiées sur le site. Dans l'aperçu, contrôle :
+- **U1, U2, U3** : le point de la broche 1 sur le repère de la sérigraphie ;
+- **C6, C10, C11** (électrolytiques) : le « + » du côté marqué sur la carte ;
+- **D1** : la bande de la cathode du côté de la bande sérigraphiée.
+
+Si une pièce est tournée, corrige la table `ROTATION` de `hardware/scripts/build_jlc.py` et régénère, plutôt que de corriger à la main sur le site.
+
+**Révision :** les fichiers à envoyer sont ceux de `hardware/fab/MANIFEST.txt` (révision 2), produits par un même lancement de `build.sh`. N'en mélange pas avec ceux d'un envoi précédent.
+
 ## 2. Mouser : composants traversants (pour 2 cartes)
 
 | Repères | Qté | Pièce | Réf. fabricant (Mouser) | € HT | Stock |

@@ -57,9 +57,10 @@ PANEL_PARTS = {
 }
 for _i, _x in enumerate(POT_X):
     PANEL_PARTS["pot%d" % (_i + 1)] = ("POT", "front", _x)
+SMALL_SMD = ("R", "C", "SOD123")     # footprint keys whose reference is drawn on F.Fab, not on the silkscreen
 FULL_PADS = ("pot",)          # roles (prefix) whose pads connect solidly to the ground pour
 POWER_NETS = ("GND", "GNDPWR", "+12V", "-12V", "P12R", "N12R", "VIN", "VJ")
-TEXTS = [("SUB EQ r1", 52.0, 26.0, 1.2), ("31", 15.0, 52.0, 1.0), ("40", 30.0, 52.0, 1.0),
+TEXTS = [("SUB EQ r%s" % circuit.REV, 52.0, 26.0, 1.2), ("31", 15.0, 52.0, 1.0), ("40", 30.0, 52.0, 1.0),
          ("50", 45.0, 52.0, 1.0), ("63", 60.0, 52.0, 1.0), ("80", 75.0, 52.0, 1.0),
          ("SHIELD", 86.0, 33.5, 0.8)]
 
@@ -211,6 +212,10 @@ def schematic_netlist():
 
 def main():
     board = pcbnew.NewBoard(OUT)
+    tb = board.GetTitleBlock()
+    tb.SetTitle(circuit.TITLE)
+    tb.SetRevision(circuit.REV)
+    tb.SetDate("2026-11-11")
     setup_rules(board)
     outline(board)
 
@@ -241,6 +246,12 @@ def main():
             raise SystemExit("no placement for " + ref)
         fp.SetPosition(V(x, y))
         fp.SetOrientationDegrees(deg)
+        if fpkey in SMALL_SMD:      # too dense for legible silkscreen: the reference goes to the assembly drawing
+            fp.Reference().SetLayer(pcbnew.F_Fab)
+            fp.Reference().SetTextSize(pcbnew.VECTOR2I(mm(0.7), mm(0.7)))
+            fp.Reference().SetTextThickness(mm(0.1))
+            fp.Reference().SetPosition(fp.GetPosition())
+            fp.Value().SetVisible(False)
         for item in list(fp.GraphicalItems()):
             if item.GetLayer() == pcbnew.Edge_Cuts:
                 fp.Remove(item)

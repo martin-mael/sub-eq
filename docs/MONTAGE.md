@@ -68,7 +68,20 @@ Les repères sont dans `hardware/fab/pcb-top.pdf` : imprime-le à l'échelle 1:1
 
 ## 5. Premiers tests (boîtier ouvert)
 
-Branche le bloc 12 V, sans source ni ampli.
+### Avant de brancher
+
+1. **Isolement :** au multimètre, pas de continuité entre la masse audio (pastille SHIELD) et le corps de la prise DC. Les deux masses sont isolées par le convertisseur.
+2. **Courts-circuits :** pas de continuité entre +12V et la masse audio (sur C10), ni entre −12V et la masse audio (sur C11), ni entre les deux broches de la prise DC.
+
+### Première mise sous tension, courant limité
+
+Avec une alimentation de laboratoire : 12 V, limite à 200 mA. Sans alimentation de laboratoire : intercale une résistance de 22 Ω dans le fil « + » du bloc secteur.
+
+La carte doit consommer ≈ 60 mA (valeur estimée), soit moins de 1,5 V aux bornes de la résistance de 22 Ω. Si le courant dépasse 150 mA ou si une pièce chauffe, coupe tout de suite et cherche le court-circuit ou la pièce inversée. Retire ensuite la résistance.
+
+### Tests
+
+Branche le bloc 12 V directement, sans source ni ampli.
 
 1. **Alimentation :** la LED s'allume. Par rapport à la masse audio (pastille SHIELD), mesure **+12 V et −12 V, à ±1 V près**, sur C10 et C11. Si la LED reste éteinte et que rien ne chauffe, la polarité du bloc est inversée (la diode D1 protège).
 2. **Offset :** moins de 20 mV continus sur la pointe du jack OUT, potentiomètres au centre.

@@ -94,8 +94,7 @@ def main():
     os.makedirs(gdir)
     run("pcb", "export", "gerbers", "--layers", "F.Cu,B.Cu,F.Paste,B.Paste,F.SilkS,B.SilkS,F.Mask,B.Mask,Edge.Cuts",
         "--no-protel-ext", "-o", gdir + "/", PCB)
-    run("pcb", "export", "drill", "--format", "excellon", "--excellon-separate-th", "--generate-map",
-        "--map-format", "gerberx2", "-o", gdir + "/", PCB)
+    run("pcb", "export", "drill", "--format", "excellon", "--excellon-separate-th", "-o", gdir + "/", PCB)
     with zipfile.ZipFile(os.path.join(FAB, "sub-eq-gerbers.zip"), "w", zipfile.ZIP_DEFLATED) as z:
         for f in sorted(os.listdir(gdir)):
             z.write(os.path.join(gdir, f), f)
@@ -127,7 +126,7 @@ def main():
             w.writerow(row)
 
     run("sch", "export", "pdf", "-o", os.path.join(FAB, "schematic.pdf"), SCH)
-    run("pcb", "export", "pdf", "--layers", "F.Cu,F.SilkS,Edge.Cuts", "--mode-single",
+    run("pcb", "export", "pdf", "--layers", "F.Cu,F.SilkS,F.Fab,Edge.Cuts", "--mode-single",
         "-o", os.path.join(FAB, "pcb-top.pdf"), PCB)
     run("pcb", "export", "step", "--subst-models", "--force", "-o", os.path.join(FAB, "sub-eq-pcb.step"), PCB)
     print("fab files in", FAB, "| SMD placements:", sum(len(v) for v in groups.values()),

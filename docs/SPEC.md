@@ -26,7 +26,7 @@ Deux comportements à connaître, propres à tout égaliseur graphique :
 |---|---|
 | Entrée | 1 × jack 6,35 mm mono, asymétrique (TS), niveau ligne pro +4 dBu nominal, impédance ≈ 50 kΩ. Entrée mise à la masse quand rien n'est branché |
 | Sortie | 1 × jack 6,35 mm mono, asymétrique (TS), impédance de sortie 100 Ω, condensateur de liaison |
-| Marge | pas d'écrêtage avec +4 dBu en entrée et 12 dB de boost (+16 dBu en sortie). Sortie max ≈ +19 à +20 dBu, limitée par les rails ±12 V |
+| Marge | pas d'écrêtage avec +4 dBu en entrée et 12 dB de boost (+16 dBu en sortie). Niveau maximal ≈ **+17 dBu**, en entrée comme en sortie : au-delà, le signal sort de la plage d'entrée du premier ampli-op (TL074 sous ±12 V) |
 
 ## Alimentation
 

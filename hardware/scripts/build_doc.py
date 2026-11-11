@@ -330,7 +330,7 @@ def build_html(smd, c1, c2, c3, diagram):
         ("Filtre subsonique", "Passe-haut fixe à 20 Hz, 12 dB / octave"),
         ("Entrée / sortie", "Jack 6,35 mm asymétrique, niveau ligne +4 dBu. Entrée ≈ 50 kΩ, sortie 100 Ω"),
         ("Bande passante", "Signal pleine bande accepté : réponse plate au-dessus des bandes"),
-        ("Niveau maximal", "≈ +19 dBu en sortie (rails ±12 V)"),
+        ("Niveau maximal", "≈ +17 dBu, en entrée comme en sortie (rails ±12 V)"),
         ("Alimentation", "Bloc 12 V continu, + au centre ; masse audio isolée du bloc"),
         ("Carte", "90 × 62 mm, 2 couches, %d CMS (0805, SOIC) + traversants" % nb_smd),
         ("Boîtier", "Imprimé 3D, 97 × 71 × 25 mm, doublé de ruban de cuivre"),

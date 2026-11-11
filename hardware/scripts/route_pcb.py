@@ -46,6 +46,53 @@ def add_zone(board, net, layer, priority=0, poly=None):
     return z
 
 
+ISOLATED_NETS = ("/VJ", "/VIN", "/GNDPWR")     # adapter side of the isolated DC-DC converter
+ISOLATION_MM = 2.0
+
+
+def add_isolation_keepout(board):
+    """Rule area (no zone fill) around every pad and track of the adapter-side nets, on both layers:
+    the audio ground pour stays ISOLATION_MM away from them."""
+    xs, ys = [], []
+    for fp in board.GetFootprints():
+        for pad in fp.Pads():
+            if pad.GetNetname() in ISOLATED_NETS:
+                bb = pad.GetBoundingBox()
+                xs += [bb.GetLeft(), bb.GetRight()]
+                ys += [bb.GetTop(), bb.GetBottom()]
+    for t in board.GetTracks():
+        if t.GetNetname() in ISOLATED_NETS:
+            bb = t.GetBoundingBox()
+            xs += [bb.GetLeft(), bb.GetRight()]
+            ys += [bb.GetTop(), bb.GetBottom()]
+    if not xs:
+        return
+    m = mm(ISOLATION_MM)
+    edge = board.GetBoardEdgesBoundingBox()
+    x0, x1 = max(min(xs) - m, edge.GetLeft()), min(max(xs) + m, edge.GetRight())
+    y0, y1 = max(min(ys) - m, edge.GetTop()), min(max(ys) + m, edge.GetBottom())
+    z = pcbnew.ZONE(board)
+    z.SetIsRuleArea(True)
+    for name in ("SetDoNotAllowZoneFills", "SetDoNotAllowCopperPour"):      # API name changed across KiCad versions
+        if hasattr(z, name):
+            getattr(z, name)(True)
+            break
+    z.SetDoNotAllowTracks(False)
+    z.SetDoNotAllowVias(False)
+    z.SetDoNotAllowPads(False)
+    z.SetDoNotAllowFootprints(False)
+    ls = pcbnew.LSET()
+    ls.AddLayer(pcbnew.F_Cu)
+    ls.AddLayer(pcbnew.B_Cu)
+    z.SetLayerSet(ls)
+    z.SetZoneName("isolation GND / GNDPWR")
+    o = z.Outline()
+    o.NewOutline()
+    for x, y in ((x0, y0), (x1, y0), (x1, y1), (x0, y1)):
+        o.Append(int(x), int(y))
+    board.Add(z)
+
+
 def remove_dangling_vias(board):
     """Drop router vias that only connect tracks on one layer (or none): KiCad flags them as dangling."""
     layers_at = {}
@@ -170,6 +217,7 @@ def post():
             t.SetWidth(mm(0.15))
     print("dangling vias removed:", remove_dangling_vias(board))
 
+    add_isolation_keepout(board)
     add_zone(board, "/GND", pcbnew.B_Cu)
     add_zone(board, "/GND", pcbnew.F_Cu)
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())

@@ -29,18 +29,33 @@ LCSC = {
 }
 
 
+# KiCad footprint (regex) -> degrees added to the KiCad rotation. JLCPCB takes the orientation of the part on
+# its reel as 0 degree, KiCad the footprint as drawn: these offsets are the usual ones (JLCKicadTools table).
+# They are a starting point: the pin-1 / polarity dots MUST be checked in JLCPCB's placement preview.
+ROTATION = [(r"^SOIC-", 270), (r"^SOP-", 270), (r"^SOT-23", 180), (r"^CP_Elec_", 180)]
+DNP = [v for v, (ref, _) in LCSC.items() if not ref]        # no LCSC reference: left out of both files
+
+
+def rotation(pkg, rot):
+    import re
+    for pattern, corr in ROTATION:
+        if re.search(pattern, pkg):
+            return (float(rot) + corr) % 360
+    return float(rot) % 360
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     raw = os.path.join(tempfile.mkdtemp(), "pos.csv")
     subprocess.run([CLI, "pcb", "export", "pos", "--format", "csv", "--units", "mm", "--side", "front",
                     "--smd-only", "--exclude-dnp", "-o", raw, PCB],
                    check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    rows = list(csv.DictReader(open(raw)))
+    rows = [r for r in csv.DictReader(open(raw)) if r["Val"] not in DNP]
     with open(os.path.join(OUT, "cpl_jlc.csv"), "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
         for r in rows:
-            w.writerow([r["Ref"], r["PosX"] + "mm", r["PosY"] + "mm", "Top", r["Rot"]])
+            w.writerow([r["Ref"], r["PosX"] + "mm", r["PosY"] + "mm", "Top", "%g" % rotation(r["Package"], r["Rot"])])
     groups = collections.OrderedDict()
     for r in rows:
         groups.setdefault((r["Val"], r["Package"]), []).append(r["Ref"])

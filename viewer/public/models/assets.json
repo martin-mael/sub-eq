@@ -5,7 +5,7 @@
     7.5000001
   ],
   "boardThicknessStep": 1.51,
-  "generated": "2026-11-10 15:41",
+  "generated": "2026-11-11 11:05",
   "sources": [
     "enclosure/out/*.step",
     "enclosure/enclosure.py",
